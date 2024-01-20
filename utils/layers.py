@@ -1,5 +1,6 @@
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+import tf_slim
 
 conv1d = tf.layers.conv1d
 
@@ -22,7 +23,7 @@ def attn_head(seq, out_sz, bias_mat, activation, in_drop=0.0, coef_drop=0.0, res
             seq_fts = tf.nn.dropout(seq_fts, 1.0 - in_drop)
 
         vals = tf.matmul(coefs, seq_fts)
-        ret = tf.contrib.layers.bias_add(vals)
+        ret = tf_slim.layers.bias_add(vals)
 
         # residual connection
         if residual:
@@ -73,7 +74,7 @@ def sp_attn_head(seq, out_sz, adj_mat, activation, nb_nodes, in_drop=0.0, coef_d
         vals = tf.sparse_tensor_dense_matmul(coefs, seq_fts)
         vals = tf.expand_dims(vals, axis=0)
         vals.set_shape([1, nb_nodes, out_sz])
-        ret = tf.contrib.layers.bias_add(vals)
+        ret = tf_slim.layers.bias_add(vals)
 
         # residual connection
         if residual:

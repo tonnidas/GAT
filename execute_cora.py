@@ -1,6 +1,6 @@
 import time
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 from models import GAT
 from utils import process

@@ -34,6 +34,33 @@ The script has been tested running under Python 3.5.2, with the following packag
 
 In addition, CUDA 9.0 and cuDNN 7 have been used.
 
+## Setup environment (Tonni)
+
+### TensorFlow v1
+
+```
+$ conda create -n gat python=3.7
+$ conda activate gat
+$ pip install tensorflow==1.15 numpy scipy networkx
+$ pip install --upgrade "protobuf<=3.20.1"
+$ python execute_cora.py
+```
+
+### TensorFlow v2
+
+```
+import tensorflow as tf --> import tensorflow.compat.v1 as tf
+tf.contrib.layers.bias_add(vals) --> tf_slim.layers.bias_add(vals)
+from scipy.sparse.linalg.eigen.arpack import eigsh --> from scipy.sparse.linalg import eigsh
+```
+
+```
+$ conda create -n gat python=3.11
+$ conda activate gat
+$ pip install tensorflow tf_slim numpy==1.23.1 scipy networkx
+$ python execute_cora.py 
+```
+
 ## Reference
 If you make advantage of the GAT model in your research, please cite the following in your manuscript:
 
